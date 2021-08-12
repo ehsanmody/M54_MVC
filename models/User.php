@@ -4,7 +4,6 @@ namespace app\models;
 
 class User extends Model
 {
-
     public $name;
     public $username;
     public $email;
@@ -15,5 +14,13 @@ class User extends Model
     public function findByUsername($username)
     {
         return $this->select($this->table_name, ["username" => $username]);
+    }
+
+    public function createUser($username, $password)
+    {
+        if(!$this->findByUsername($username))
+        {
+            
+        }
     }
 }

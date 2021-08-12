@@ -7,7 +7,6 @@ use app\models\User;
 
 class Auth
 {
-
     public static function login(string $username, string $password)
     {
         $user = (new User())->findByUsername($username);
