@@ -17,4 +17,14 @@ class Auth
 
         return $user->password == $password;
     }
+
+    public static function register(array $inputs)
+    {
+        # code...
+    }
+
+    public static function user(): User|bool
+    {
+        # code...
+    }
 }
