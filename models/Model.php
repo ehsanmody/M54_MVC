@@ -40,8 +40,9 @@ class Model
 
         try {
             $sth->execute();
-            return $pdo->lastInsertId();
+            return $this->pdo->lastInsertId();
         } catch(\PDOException $e) {
+            echo $e->getMessage();
             return -1;
         }
     }

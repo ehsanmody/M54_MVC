@@ -9,7 +9,10 @@ class Auth
 {
     public static function login(string $username, string $password)
     {
+
         $user = (new User())->findByUsername($username);
+
+        var_dump($user);
 
         if (is_bool($user))
             return false;
@@ -19,14 +22,14 @@ class Auth
 
     public static function register(array $inputs)
     {
-        return (new User())->createUser($inputs) != -1;
+        return (new User())->createUser($inputs);
     }
 
     public static function user(): User|bool
     {
-        if (isset($_COOKIE['user']))
+        if (isset($_SESSION['user']))
         {
-            return $_COOKIE['user'];
+            return (new User())->findByUsername($_SESSION['user']);
         }
         return false;
     }

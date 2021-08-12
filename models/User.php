@@ -18,10 +18,8 @@ class User extends Model
 
     public function createUser(array $inputs)
     {
-        if(!$this->findByUsername($inputs['username']))
-        {
-            return $this->insert($this->table_name, $inputs);
-        }
-        return -1;
+        $data = array_values($inputs);
+        array_unshift($data, "NULL");
+        return $this->insert($this->table_name, $data);
     }
 }
