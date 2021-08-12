@@ -14,17 +14,24 @@ class Auth
 
         if (is_bool($user))
             return false;
-
+        $password = md5($password);
         return $user->password == $password;
     }
 
     public static function register(array $inputs)
     {
-        # code...
+        $user = new user();
+       if (($user->findByUsername($inputs['username']) && $user->findByemail($inputs['email']))){
+           return false;
+       }else{
+         return $user->register($inputs);
+       }
     }
 
-    public static function user(): User|bool
+    public static function user($username): User|bool
     {
-        # code...
+        $user = (new User())->findByUsername($username);
+
+        return $user ? $user : false;
     }
 }

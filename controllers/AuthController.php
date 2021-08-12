@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\models\Auth;
 use app\models\User;
 use app\core\Request;
@@ -19,9 +20,11 @@ class AuthController extends BaseController
         $data = $request->getBody();
 
         if (Auth::login($data['username'], $data['password'])) {
-            return "Login OK!";
+            session_start();
+            $_SESSION["username"] = $data['username'];
+            return Application::$app->response->redirect('/home');
         } else {
-            return "username or password is incorrect";
+            return $this->render('auth/login', ["message" => "incorrect password"]);
         }
     }
 
@@ -33,8 +36,14 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $data = $request->getBody();
-        $id = User::register($data);
-
-        return $id;
+        $id = Auth::register($data);
+        if($id === false){
+            return $this->render('auth/register', ["message" => "user or email exist."]);
+        }else{
+            session_start();
+            $_SESSION["username"] = $data['username'];
+            return Application::$app->response->redirect('/home');
+        }
+        
     }
 }

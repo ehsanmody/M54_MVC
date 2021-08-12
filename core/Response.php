@@ -12,4 +12,9 @@ class Response
     {
         header("Content-Type: $type; charset=UTF-8");
     }
+
+    public function redirect($url){
+
+        header("Location: $url");
+    }
 }

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\core\Database;
+use PDOException;
 
 class Model
 {
@@ -15,13 +16,26 @@ class Model
 
     public function select($table_name, array $where = [])
     {
-        $key = array_keys($where)[0];
-        $value = $where[$key];
+        $attributes = array_keys($where);
 
-        $sth = $this->pdo->prepare("SELECT * FROM $table_name where $key = '$value'");
-        $sth->execute();
+        $sql = implode(" AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $statement = $this->pdo->prepare("SELECT * FROM $table_name WHERE $sql");
+       
+        foreach ($where as $key => $item)
+            $statement->bindValue(":$key", $item);
+       
+        $statement->execute();
 
-        // get_class($this) OR get_called_class() = child/called classes
-        return $sth->fetchObject(get_called_class());
+        return $statement->fetchObject(get_called_class()) ?? false;
+    }
+
+    public function insert($sql){
+        
+        try {
+        $this->pdo->exec($sql);
+        return $this->pdo->lastInsertId();
+        }catch (\PDOException $e){
+            return false;
+        }
     }
 }

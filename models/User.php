@@ -16,4 +16,15 @@ class User extends Model
     {
         return $this->select($this->table_name, ["username" => $username]);
     }
+
+    public function findbyemail($email){
+        return $this->select($this->table_name,["email" => $email]);
+    }
+
+    public function register($inputs){
+        $inputs["password"] = md5($inputs["password"]);
+        $sql = sprintf("INSERT INTO %s (name,username,email,password) VALUES ('%s','%s','%s','%s')", $this->table_name, $inputs['name'], $inputs['username'], $inputs['email'], $inputs['password']);
+
+        return $this->insert($sql);
+    }
 }
