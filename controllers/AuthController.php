@@ -17,10 +17,10 @@ class AuthController extends BaseController
     {
         $data = $request->getBody();
         if (Auth::login($data['username'], $data['password'])) {
-            $_SESSION['user'] = $data['username'];
-            return "Login OK!";
+            setcookie("username", $data['username'], time() + 3600, "/");
+            header("Location: /home?name=" . $data['username']);
         } else {
-            return "username or password is incorrect";
+            header("Location: /login?error=" . "'Username and password does not match'");
         }
     }
 
@@ -33,12 +33,20 @@ class AuthController extends BaseController
     {
         $data = $request->getBody();
         $id = Auth::register($data);
-        return "Registered " . $id;
+        if ($id == -1)
+        {
+            header("Location: /register?error=" . "'Registration failed'");
+        } else {
+            header("Location: /login");
+        }
     }
 
     public function logout()
     {
-        session_destroy();
-        return "Logged out";
+        if(isset($_COOKIE['username']))
+        {
+            setcookie("username", "", time() - 1, "/");
+        }
+        header("Location: /login");
     }
 }

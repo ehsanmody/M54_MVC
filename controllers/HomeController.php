@@ -2,14 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\Auth;
+
 class HomeController extends BaseController
 {
 
     public function home() {
-        $data = [
-            'name' => "Ehsan Kashfi"
-        ];
+        $user = Auth::user();
 
+        $data['name'] = is_bool($user) ? "Guest" : $user->username;
+        
         return $this->render('home', $data);
     }
 }

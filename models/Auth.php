@@ -25,9 +25,9 @@ class Auth
 
     public static function user(): User|bool
     {
-        if (isset($_SESSION['user']))
+        if (isset($_COOKIE['username']))
         {
-            return (new User())->findByUsername($_SESSION['user']);
+            return (new User())->findByUsername($_COOKIE['username']);
         }
         return false;
     }
