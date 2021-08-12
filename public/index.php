@@ -12,7 +12,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use app\core\Application;
 
 use app\controllers\HomeController;
-use app\controllers\LoginController;
+use app\controllers\AuthController;
 
 $app = new Application(dirname(__DIR__)); # Change 1
 
@@ -24,7 +24,7 @@ $app->router->get('/about', 'about'); // only view
 
 $app->router->get('/home', [HomeController::class, 'home']); // controller callback
 
-$app->router->get('/login', 'login');
-$app->router->post('/login', [LoginController::class, 'handleLogin']);
+$app->router->get('/login', [AuthController::class, 'showLogin']);
+$app->router->get('/register', [AuthController::class, 'showRegister']);
 
 $app->run();
