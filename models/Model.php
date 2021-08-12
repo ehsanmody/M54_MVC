@@ -21,6 +21,7 @@ class Model
         $sth = $this->pdo->prepare("SELECT * FROM $table_name where $key = '$value'");
         $sth->execute();
 
-        return $sth->fetch(\PDO::FETCH_ASSOC);
+        // get_class($this) OR get_called_class() = child/called classes
+        return $sth->fetchObject(get_called_class());
     }
 }

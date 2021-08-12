@@ -15,7 +15,6 @@ class Auth
         if (is_bool($user))
             return false;
 
-        //return $user->password == $password;    
-        return $user['password'] == $password;
+        return $user->password == $password;
     }
 }
