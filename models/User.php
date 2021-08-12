@@ -16,11 +16,12 @@ class User extends Model
         return $this->select($this->table_name, ["username" => $username]);
     }
 
-    public function createUser($username, $password)
+    public function createUser(array $inputs)
     {
-        if(!$this->findByUsername($username))
+        if(!$this->findByUsername($inputs['username']))
         {
-            
+            return $this->insert($this->table_name, $inputs);
         }
+        return -1;
     }
 }

@@ -29,6 +29,20 @@ class Model
 
     public function insert($table_name, array $data = [])
     {
+        $format_data = [];
 
+        foreach($data as $single) {
+            $format_data[] = "'" . $single . "'";
+        }
+        $format_data = implode(", ", $format_data);
+
+        $sth = $this->pdo->prepare("INSERT INTO $table_name VALUES ($format_data)");
+
+        try {
+            $sth->execute();
+            return $pdo->lastInsertId();
+        } catch(\PDOException $e) {
+            return -1;
+        }
     }
 }

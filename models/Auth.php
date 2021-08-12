@@ -19,11 +19,15 @@ class Auth
 
     public static function register(array $inputs)
     {
-        # code...
+        return (new User())->createUser($inputs) != -1;
     }
 
     public static function user(): User|bool
     {
-        # code...
+        if (isset($_COOKIE['user']))
+        {
+            return $_COOKIE['user'];
+        }
+        return false;
     }
 }
