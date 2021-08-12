@@ -12,8 +12,6 @@ class Auth
 
         $user = (new User())->findByUsername($username);
 
-        var_dump($user);
-
         if (is_bool($user))
             return false;
 

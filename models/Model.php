@@ -15,12 +15,13 @@ class Model
 
     public function select($table_name, array $where = [])
     {
-        $sth = $this->pdo->prepare("SELECT * FROM $table_name");
+        $condition = "";
 
-        // Binding with column allows us to have a multi state where condition
-        foreach ($where as $key => &$val) {
-            $sth->bindColumn($key, $val);
+        foreach ($where as $key => $val) {
+            $condition = $condition . " " . $key . "=" . "'" . $val . "'";
         }
+
+        $sth = $this->pdo->prepare("SELECT * FROM $table_name WHERE $condition");
 
         $sth->execute();
 
