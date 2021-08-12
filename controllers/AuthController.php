@@ -12,8 +12,18 @@ class AuthController extends BaseController
         return $this->render('auth/login');
     }
 
+    public function login(Request $request)
+    {
+        # code...
+    }
+
     public function showRegister()
     {
         return $this->render('auth/register');
+    }
+
+    public function register(Request $request)
+    {
+        # code...
     }
 }

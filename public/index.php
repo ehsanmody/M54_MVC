@@ -25,6 +25,8 @@ $app->router->get('/about', 'about'); // only view
 $app->router->get('/home', [HomeController::class, 'home']); // controller callback
 
 $app->router->get('/login', [AuthController::class, 'showLogin']);
+$app->router->post('/auth/login', [AuthController::class, 'login']);
 $app->router->get('/register', [AuthController::class, 'showRegister']);
+$app->router->post('/auth/register', [AuthController::class, 'register']);
 
 $app->run();
