@@ -31,7 +31,9 @@ class AuthController extends BaseController
 
         } else {
 
-            return "username or password is incorrect";
+            $data=['error' => "username or password is incorrect"];
+            
+            return $this->render('auth/login',$data);
         }
     }
 

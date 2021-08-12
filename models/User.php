@@ -16,4 +16,6 @@ class User extends Model
     {
         return $this->select($this->table_name, ["username" => $username]);
     }
+
+    
 }
