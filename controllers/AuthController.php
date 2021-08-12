@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Auth;
 use app\models\User;
 use app\core\Request;
+use app\controllers\HomeController;
 
 class AuthController extends BaseController
 {
@@ -18,9 +19,18 @@ class AuthController extends BaseController
     {
         $data = $request->getBody();
 
+        $data['password']=md5($data['password']);
+
         if (Auth::login($data['username'], $data['password'])) {
-            return "Login OK!";
+
+            setcookie('username',$data['username']);
+
+
+            return $this->render('home',$data);
+
+
         } else {
+
             return "username or password is incorrect";
         }
     }

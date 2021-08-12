@@ -9,7 +9,7 @@ class Database
     const DB_PORT = "3306";
     const DB_NAME = "MVC";
     const DB_USERNAME = "root";
-    const DB_PASSWORD = "4G@tE#D6P%km";
+    const DB_PASSWORD = "";
 
     private static $instance;
 
