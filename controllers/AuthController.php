@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
-use app\core\Request;
+use app\models\Auth;
 use app\models\User;
+use app\core\Request;
 
 class AuthController extends BaseController
 {
@@ -15,7 +16,13 @@ class AuthController extends BaseController
 
     public function login(Request $request)
     {
-        # code...
+        $data = $request->getBody();
+
+        if (Auth::login($data['username'], $data['password'])) {
+            return "Login OK!";
+        } else {
+            return "username or password is incorrect";
+        }
     }
 
     public function showRegister()

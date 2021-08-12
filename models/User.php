@@ -5,12 +5,10 @@ namespace app\models;
 class User extends Model
 {
 
-    protected static $table_name = "users";
+    protected $table_name = "users";
     
-    public static function register(array $inputs)
+    public function findByUsername($username)
     {
-        $sql = sprintf("INSERT INTO %s (name,username,email,password) VALUES ('%s','%s','%s','%s')", self::$table_name, $inputs['name'], $inputs['username'], $inputs['email'], $inputs['password']);
-
-        return static::insert($sql);
+        return $this->select($this->table_name, ["username" => $username]);
     }
 }

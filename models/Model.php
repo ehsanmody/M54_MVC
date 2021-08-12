@@ -7,15 +7,20 @@ use app\core\Database;
 class Model
 {
 
-    private static $pdo;
+    private $pdo;
 
     public function __construct() {
-        self::$pdo = Database::getInstance()->getPDO();
+        $this->pdo = Database::getInstance()->getPDO();
     }
 
-    public static function insert(string $sql)
+    public function select($table_name, array $where = [])
     {
-        self::$pdo->exec($sql);
-        return self::$pdo->lastInsertId();
+        $key = array_keys($where)[0];
+        $value = $where[$key];
+
+        $sth = $this->pdo->prepare("SELECT * FROM $table_name where $key = '$value'");
+        $sth->execute();
+
+        return $sth->fetch(\PDO::FETCH_ASSOC);
     }
 }
