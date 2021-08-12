@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\core\Request;
+use app\models\User;
 
 class AuthController extends BaseController
 {
@@ -24,6 +25,9 @@ class AuthController extends BaseController
 
     public function register(Request $request)
     {
-        # code...
+        $data = $request->getBody();
+        $id = User::register($data);
+
+        return $id;
     }
 }

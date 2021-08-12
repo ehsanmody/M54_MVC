@@ -18,6 +18,8 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
 
+        new \app\models\Model();
+
         $this->router = new Router($this->request, $this->response);
     }
 
