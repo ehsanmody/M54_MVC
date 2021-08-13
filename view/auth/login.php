@@ -1,6 +1,6 @@
-<?php if(isset($error)) { ?>
+<?php if(isset($error) && $error) { ?>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>یک خطایی رخ داد!</strong> <?php echo $error; ?>
+    <strong>یک خطایی رخ داد!</strong> <?php echo $message; ?>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <?php } ?>
