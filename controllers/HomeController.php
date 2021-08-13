@@ -6,10 +6,14 @@ class HomeController extends BaseController
 {
 
     public function home() {
-        $data = [
-            'name' => "Ehsan Kashfi"
-        ];
 
-        return $this->render('home', $data);
+        if(isset($_COOKIE['username']))
+        {
+            $data=['username' => $_COOKIE['username']];
+            return $this->render('home',$data);
+        }
+
+        $data=['username' => 'guest user'];
+        return $this->render('home',$data);
     }
 }
