@@ -20,7 +20,7 @@ $app->router->get('/', function() {
     return "Hello World";
 }); // only callback
 
-$app->router->get('/about', 'about'); // only view
+//$app->router->get('/about', 'about')->name('about'); TODO: [1]
 
 $app->router->get('/home', [HomeController::class, 'home']); // controller callback
 

@@ -11,6 +11,8 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    <?php include_once "header.php" ?>
+    
     <div class="container">
         {{content}}
     </div>
