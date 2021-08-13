@@ -14,19 +14,29 @@ class Router
         $this->response = $response;
     }
 
+    public function getURL($name) {
+        foreach($this->routes as $method) {
+            foreach($method as $route) {
+                if ($route->getName() == $name) {
+                    return $route->getPath();
+                }
+            }
+        }
+    }
+
     public function get($path, $callback) {
-        $this->routes['get'][$path] = $callback;
+        return $this->routes['get'][$path] = new Route($path, $callback);
     }
 
     public function post($path, $callback) {
-        $this->routes['post'][$path] = $callback;
+        return $this->routes['post'][$path] = new Route($path, $callback);
     }
 
     public function resolve() {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
         
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = $this->routes[$method][$path]->getCallback() ?? false;
         
         if ($callback === false) {
             $code = 404;

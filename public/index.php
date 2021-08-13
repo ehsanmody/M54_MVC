@@ -18,15 +18,15 @@ $app = new Application(dirname(__DIR__)); # Change 1
 
 $app->router->get('/', function() {
     return "Hello World";
-}); // only callback
+})->name('root'); // only callback
 
-//$app->router->get('/about', 'about')->name('about'); TODO: [1]
+$app->router->get('/about', 'about')->name('about');
 
-$app->router->get('/home', [HomeController::class, 'home']); // controller callback
+$app->router->get('/home', [HomeController::class, 'home'])->name('home'); // controller callback
 
-$app->router->get('/login', [AuthController::class, 'showLogin']);
+$app->router->get('/login', [AuthController::class, 'showLogin'])->name('login');
 $app->router->post('/auth/login', [AuthController::class, 'login']);
-$app->router->get('/register', [AuthController::class, 'showRegister']);
+$app->router->get('/register', [AuthController::class, 'showRegister'])->name('register');
 $app->router->post('/auth/register', [AuthController::class, 'register']);
 
 $app->run();

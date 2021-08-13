@@ -1,8 +1,11 @@
+<?php
+  use app\core\Application;
+?>
 <nav class="py-2 bg-light border-bottom mb-4">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         <li class="nav-item"><a href="/home" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
-        <!-- <li class="nav-item"><a href="<?php //getURL('about'); ?>" class="nav-link link-dark px-2">About</a></li> -->
+        <li class="nav-item"><a href="<?php echo Application::$app->router->getURL('about'); ?>" class="nav-link link-dark px-2">About</a></li> 
       </ul>
       <ul class="nav">
         <?php if(\app\models\Auth::check()) { ?>
