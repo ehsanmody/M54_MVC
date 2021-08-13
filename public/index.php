@@ -20,7 +20,7 @@ $app->router->get('/', function() {
     return "Hello World";
 }); // only callback
 
-$app->router->get('/about', 'about'); // only view
+//$app->router->get('/about', 'about')->name('about'); TODO: [1]
 
 $app->router->get('/home', [HomeController::class, 'home']); // controller callback
 
@@ -28,6 +28,5 @@ $app->router->get('/login', [AuthController::class, 'showLogin']);
 $app->router->post('/auth/login', [AuthController::class, 'login']);
 $app->router->get('/register', [AuthController::class, 'showRegister']);
 $app->router->post('/auth/register', [AuthController::class, 'register']);
-$app->router->post('/logout', [AuthController::class, 'logout']);
 
 $app->run();

@@ -12,4 +12,8 @@ class Response
     {
         header("Content-Type: $type; charset=UTF-8");
     }
+
+    public function redirect(string $path = "/", int $code = 301) {
+        header("Location: $path", TRUE, $code);
+    }
 }

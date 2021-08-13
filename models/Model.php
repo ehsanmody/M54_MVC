@@ -6,45 +6,22 @@ use app\core\Database;
 
 class Model
 {
+
     private $pdo;
 
-    public function __construct() 
-    {
+    public function __construct() {
         $this->pdo = Database::getInstance()->getPDO();
     }
 
     public function select($table_name, array $where = [])
     {
-        $condition = "";
+        $key = array_keys($where)[0];
+        $value = $where[$key];
 
-        foreach ($where as $key => $val) {
-            $condition = $condition . " " . $key . "=" . "'" . $val . "'";
-        }
-
-        $sth = $this->pdo->prepare("SELECT * FROM $table_name WHERE $condition");
-
+        $sth = $this->pdo->prepare("SELECT * FROM $table_name where $key = '$value'");
         $sth->execute();
 
+        // get_class($this) OR get_called_class() = child/called classes
         return $sth->fetchObject(get_called_class());
-    }
-
-    public function insert($table_name, array $data = [])
-    {
-        $format_data = [];
-
-        foreach($data as $single) {
-            $format_data[] = "'" . $single . "'";
-        }
-        $format_data = implode(", ", $format_data);
-
-        $sth = $this->pdo->prepare("INSERT INTO $table_name VALUES ($format_data)");
-
-        try {
-            $sth->execute();
-            return $this->pdo->lastInsertId();
-        } catch(\PDOException $e) {
-            echo $e->getMessage();
-            return -1;
-        }
     }
 }
