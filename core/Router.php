@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\Message;
+
 class Router
 {
     public Request $request;
@@ -79,6 +81,12 @@ class Router
     }
 
     protected function loadLayout() {
+        if (Message::check())
+        {
+            $message = Message::getMessage();
+            $type = Message::getType();
+            Message::clear();
+        }
         ob_start();
         include_once Application::$ROOT_DIR . "/view/layouts/main.php";
         return ob_get_clean();

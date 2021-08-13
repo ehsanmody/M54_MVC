@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Auth;
 use app\models\User;
 use app\core\Request;
+use app\core\Message;
 
 class AuthController extends BaseController
 {
@@ -19,8 +20,10 @@ class AuthController extends BaseController
         $data = $request->getBody();
 
         if (Auth::login($data['username'], $data['password'])) {
+            Message::addMessage("Logged in successfully", "success");
             return $this->redirect("home");
         } else {
+            Message::addMessage("Username or password is incorrect");
             return $this->redirect("login", 302);
         }
     }

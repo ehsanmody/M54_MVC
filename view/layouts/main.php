@@ -12,6 +12,12 @@
   </head>
   <body>
     <?php include_once "header.php" ?>
+
+    <?php if (isset($message)) { ?>
+      <div class="alert <?php if ($type == "error") echo "alert-danger"; else echo "alert-success" ?>" role="alert">
+        <?php echo $message; ?>
+      </div>
+    <?php } ?>
     
     <div class="container">
         {{content}}
