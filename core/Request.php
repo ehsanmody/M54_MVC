@@ -10,10 +10,10 @@ class Request
         $pos = strpos($path, '?');
         
         if ($pos === false) {
-            return $path;
+            return rtrim($path, "/");
         }
 
-        return substr($path, 0, $pos);
+        return rtrim(substr($path, 0, $pos), "/");
     }
 
     public function getMethod()

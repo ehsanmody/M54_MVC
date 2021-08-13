@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\Application;
+
 class Response
 {
     public function setStatusCode(int $code) {
@@ -13,7 +15,8 @@ class Response
         header("Content-Type: $type; charset=UTF-8");
     }
 
-    public function redirect(string $path = "/", int $code = 301) {
+    public function redirect(string $name = "root", int $code = 301) {
+        $path = Application::$app->router->getURL($name);
         header("Location: $path", TRUE, $code);
     }
 }

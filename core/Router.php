@@ -36,7 +36,10 @@ class Router
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
         
-        $callback = $this->routes[$method][$path]->getCallback() ?? false;
+        if (isset($this->routes[$method][$path]))
+            $callback = $this->routes[$method][$path]->getCallback() ?? false;
+        else
+            $callback = false;
         
         if ($callback === false) {
             $code = 404;

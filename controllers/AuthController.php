@@ -19,9 +19,9 @@ class AuthController extends BaseController
         $data = $request->getBody();
 
         if (Auth::login($data['username'], $data['password'])) {
-            return $this->redirect("/home");
+            return $this->redirect("home");
         } else {
-            return "username or password is incorrect";
+            return $this->redirect("login", 302);
         }
     }
 
