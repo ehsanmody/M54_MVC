@@ -28,5 +28,6 @@ $app->router->get('/login', [AuthController::class, 'showLogin'])->name('login')
 $app->router->post('/auth/login', [AuthController::class, 'login']);
 $app->router->get('/register', [AuthController::class, 'showRegister'])->name('register');
 $app->router->post('/auth/register', [AuthController::class, 'register']);
+$app->router->get('/logout',  [AuthController::class, 'logout'])->name('logout');
 
 $app->run();

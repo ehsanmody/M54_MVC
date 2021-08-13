@@ -11,8 +11,7 @@ class Auth
 
     public static function login(string $username, string $password)
     {
-        $user = (new User())->findByUsername($username);
-        //$user = (new User())->login($username, $password); TODO: P2
+        $user = (new User())->login($username, $password);
 
         if (is_bool($user))
             return false;
@@ -43,5 +42,9 @@ class Auth
 
     public static function check() {
         return (bool)Cookie::get('username');
+    }
+
+    public static function logout() {
+        return Cookie::set('username', "", -3601);
     }
 }

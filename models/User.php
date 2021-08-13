@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use app\models\traits\Login;
+
 class User extends Model
 {
-    //use login; TODO: P2
+    use Login;
 
     public $name;
     public $username;

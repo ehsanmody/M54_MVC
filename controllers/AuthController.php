@@ -37,4 +37,13 @@ class AuthController extends BaseController
 
         return $id;
     }
+
+    public function logout() 
+    {
+        if (Auth::logout()) {
+            return $this->redirect("/login");
+        } else {
+            return $this->redirect("/home");
+        }
+    }
 }

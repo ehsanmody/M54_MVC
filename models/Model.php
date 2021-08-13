@@ -15,10 +15,15 @@ class Model
 
     public function select($table_name, array $where = [])
     {
-        $key = array_keys($where)[0];
-        $value = $where[$key];
+        $condition = [];
 
-        $sth = $this->pdo->prepare("SELECT * FROM $table_name where $key = '$value'");
+        foreach ($where as $key => $val) {
+            $condition[] = $key . "=" . "'" . $val . "'";
+        }
+
+        $condition = implode(" AND ", $condition);
+
+        $sth = $this->pdo->prepare("SELECT * FROM $table_name WHERE $condition");
         $sth->execute();
 
         // get_class($this) OR get_called_class() = child/called classes

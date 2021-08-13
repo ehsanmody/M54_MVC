@@ -14,7 +14,7 @@
               <img src="https://ui-avatars.com/api/?name=<?php echo \app\models\Auth::user()->name; ?>" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li><a class="dropdown-item" href="<?php echo Application::$app->router->getURL('logout'); ?>">Sign out</a></li>
             </ul>
           </div>
         </div>
