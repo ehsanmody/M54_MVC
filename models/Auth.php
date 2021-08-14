@@ -2,22 +2,18 @@
 
 namespace app\models;
 
-use app\core\Database;
 use app\models\User;
+use app\utils\Cookie;
+use app\core\Database;
 
 class Auth
 {
 
     public static function login(string $username, string $password)
     {
-        $user = (new User())->findByUsername($username);
-
-        if (is_bool($user))
-            return false;
-        $password = md5($password);
-        return $user->password == $password;
+       return (new User())->login($username, $password) ? true : false;
+    
     }
-
     public static function register(array $inputs)
     {
         $user = new user();
@@ -28,10 +24,18 @@ class Auth
        }
     }
 
-    public static function user($username): User|bool
+    public static function user(): User|bool
     {
-        $user = (new User())->findByUsername($username);
+        if (self::check()) {
+            $user = (new User())->findByUsername(Cookie::get('username'));
+            unset($user->password);
+            return $user;
+        }
+        
+        return false;
+    }
 
-        return $user ? $user : false;
+    public static function check() {
+        return (bool)Cookie::get('username');
     }
 }

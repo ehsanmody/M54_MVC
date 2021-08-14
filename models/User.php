@@ -2,8 +2,10 @@
 
 namespace app\models;
 
-class User extends Model
+
+class User extends Model 
 {
+    use Login;
 
     public $name;
     public $username;
@@ -27,4 +29,9 @@ class User extends Model
 
         return $this->insert($sql);
     }
+
+    // public function login($username, $password){
+        // return $this->login($username, $password) ? true : false;
+
+    // }
 }

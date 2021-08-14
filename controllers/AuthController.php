@@ -22,7 +22,7 @@ class AuthController extends BaseController
         if (Auth::login($data['username'], $data['password'])) {
             session_start();
             $_SESSION["username"] = $data['username'];
-            return Application::$app->response->redirect('/home');
+            return $this->redirect("/home");
         } else {
             return $this->render('auth/login', ["message" => "incorrect password"]);
         }
