@@ -11,23 +11,16 @@ class Auth
 
     public static function login(string $username, string $password)
     {
-        $user = (new User())->findByUsername($username);
-        //$user = (new User())->login($username, $password); TODO: P2
-
-        if (is_bool($user))
-            return false;
-
-        if ($user->password == $password) {
-            Cookie::set('username', $user->username);
-            return true;
-        }
-
-        return false;
+       return (new User())->login($username, $password) ? true : false;
     }
-
     public static function register(array $inputs)
     {
-        # code...
+        $user = new user();
+       if (($user->findByUsername($inputs['username']) && $user->findByemail($inputs['email']))){
+           return false;
+       }else{
+         return $user->register($inputs);
+       }
     }
 
     public static function user(): User|bool
