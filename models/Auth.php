@@ -12,7 +12,6 @@ class Auth
     public static function login(string $username, string $password)
     {
        return (new User())->login($username, $password) ? true : false;
-    
     }
     public static function register(array $inputs)
     {
