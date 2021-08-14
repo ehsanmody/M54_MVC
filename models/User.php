@@ -7,6 +7,7 @@ class User extends Model
 {
     use Login;
 
+
     public $name;
     public $username;
     public $email;
